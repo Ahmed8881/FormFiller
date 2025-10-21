@@ -2,64 +2,398 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      width: 300px;
-      padding: 15px;
-      font-family: Arial, sans-serif;
+      width: 380px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
     }
-    h3 {
-      margin-top: 0;
+
+    .container {
+      background: white;
+      border-radius: 0 0 8px 8px;
     }
-    button {
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .header h2 {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .header p {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    .profile-selector {
+      margin-bottom: 20px;
+    }
+
+    .profile-selector label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #555;
+    }
+
+    select {
       width: 100%;
       padding: 10px;
-      margin: 5px 0;
-      background-color: #4CAF50;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
       font-size: 14px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s;
     }
-    button:hover {
-      background-color: #45a049;
+
+    select:hover {
+      border-color: #667eea;
     }
+
+    select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    button {
+      flex: 1;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    .btn-secondary {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .btn-secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+      color: white;
+    }
+
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(56, 239, 125, 0.4);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+      color: white;
+    }
+
+    .btn-danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(235, 51, 73, 0.4);
+    }
+
+    .btn-icon {
+      font-size: 16px;
+    }
+
     .status {
-      margin-top: 10px;
-      padding: 8px;
-      border-radius: 4px;
+      padding: 12px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      font-size: 13px;
       display: none;
+      animation: slideIn 0.3s ease;
     }
-    .success {
-      background-color: #d4edda;
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .status.success {
+      background: #d4edda;
       color: #155724;
+      border: 1px solid #c3e6cb;
     }
-    .error {
-      background-color: #f8d7da;
+
+    .status.error {
+      background: #f8d7da;
       color: #721c24;
+      border: 1px solid #f5c6cb;
     }
-    .form-data {
-      margin-top: 15px;
-      padding: 10px;
-      background-color: #f5f5f5;
-      border-radius: 4px;
+
+    .status.info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+
+    .stats {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .stats-row:last-child {
+      margin-bottom: 0;
+    }
+
+    .stats-label {
+      color: #666;
+    }
+
+    .stats-value {
+      font-weight: 600;
+      color: #667eea;
+    }
+
+    .profile-info {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 15px;
+      border-radius: 6px;
       font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .profile-info strong {
+      color: #667eea;
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+
+    .profile-detail {
+      display: flex;
+      margin-bottom: 5px;
+    }
+
+    .profile-detail-label {
+      color: #666;
+      min-width: 70px;
+    }
+
+    .profile-detail-value {
+      color: #333;
+      font-weight: 500;
+    }
+
+    .footer {
+      padding: 15px 20px;
+      background: #f8f9fa;
+      border-top: 1px solid #e0e0e0;
+      text-align: center;
+      font-size: 11px;
+      color: #999;
+    }
+
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      padding: 10px;
+      background: #f8f9fa;
+      border-radius: 6px;
+    }
+
+    .toggle-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #555;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 50px;
+      height: 26px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.4s;
+      border-radius: 26px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: 0.4s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #667eea;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
     }
   </style>
 </head>
 <body>
-  <h3>Auto Form Filler</h3>
-  <button id="fillForm">Fill Form</button>
-  <button id="saveData">Save Custom Data</button>
-  <div id="status" class="status"></div>
-  <div class="form-data">
-    <strong>Test Data:</strong><br>
-    Name: John Doe<br>
-    Email: john.doe@example.com<br>
-    Phone: (555) 123-4567<br>
-    Address: 123 Main St
+  <div class="header">
+    <h2>🚀 Auto Form Filler Pro</h2>
+    <p>Smart & Fast Form Filling</p>
   </div>
+
+  <div class="container">
+    <div class="content">
+      <div id="status" class="status"></div>
+
+      <div class="profile-selector">
+        <label>Select Profile</label>
+        <select id="profileSelect">
+          <option value="personal">👤 Personal</option>
+          <option value="business">💼 Business</option>
+          <option value="test">🧪 Test Data</option>
+          <option value="custom">⚙️ Custom</option>
+        </select>
+      </div>
+
+      <div class="toggle-container">
+        <span class="toggle-label">Auto-detect fields</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="autoDetect" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="button-group">
+        <button id="fillForm" class="btn-primary">
+          <span class="btn-icon">✨</span>
+          Fill Form
+        </button>
+        <button id="clearForm" class="btn-danger">
+          <span class="btn-icon">🗑️</span>
+          Clear
+        </button>
+      </div>
+
+      <div class="button-group">
+        <button id="saveProfile" class="btn-success">
+          <span class="btn-icon">💾</span>
+          Save Profile
+        </button>
+        <button id="manageProfiles" class="btn-secondary">
+          <span class="btn-icon">⚙️</span>
+          Manage
+        </button>
+      </div>
+
+      <div class="stats" id="stats" style="display: none;">
+        <div class="stats-row">
+          <span class="stats-label">Fields Found:</span>
+          <span class="stats-value" id="fieldsFound">0</span>
+        </div>
+        <div class="stats-row">
+          <span class="stats-label">Fields Filled:</span>
+          <span class="stats-value" id="fieldsFilled">0</span>
+        </div>
+        <div class="stats-row">
+          <span class="stats-label">Last Used:</span>
+          <span class="stats-value" id="lastUsed">Never</span>
+        </div>
+      </div>
+
+      <div class="profile-info" id="profileInfo">
+        <strong>📋 Current Profile Data</strong>
+        <div class="profile-detail">
+          <span class="profile-detail-label">Name:</span>
+          <span class="profile-detail-value" id="profileName">-</span>
+        </div>
+        <div class="profile-detail">
+          <span class="profile-detail-label">Email:</span>
+          <span class="profile-detail-value" id="profileEmail">-</span>
+        </div>
+        <div class="profile-detail">
+          <span class="profile-detail-label">Phone:</span>
+          <span class="profile-detail-value" id="profilePhone">-</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      Made with ❤️ | v2.0 | Click fields to edit manually
+    </div>
+  </div>
+
   <script src="popup.js"></script>
 </body>
 </html>

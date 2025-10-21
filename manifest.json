@@ -1,12 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "Auto Form Filler",
-  "version": "1.0",
-  "description": "Automatically fill forms with test data",
+  "name": "Auto Form Filler Pro",
+  "version": "2.0",
+  "description": "Smart form filler with custom profiles and advanced detection",
   "permissions": [
     "activeTab",
     "storage",
     "scripting"
+  ],
+  "host_permissions": [
+    "<all_urls>"
   ],
   "action": {
     "default_popup": "popup.html"
@@ -15,7 +18,8 @@
     {
       "matches": ["<all_urls>"],
       "js": ["content.js"],
-      "run_at": "document_idle"
+      "run_at": "document_idle",
+      "all_frames": false
     }
   ],
   "background": {
